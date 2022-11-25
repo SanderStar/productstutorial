@@ -1,0 +1,9 @@
+<mvc:View controllerName="tutorial.products.controller.MainView" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m">
+    <Page id="Products" title="Available Products">
+        <content>
+          <List items="{/Products}">
+            <StandardListItem type="Navigation" press="handleListItemPress" title="{ProductName}" />
+          </List>
+        </content>
+      </Page>
+</mvc:View>
