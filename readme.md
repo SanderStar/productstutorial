@@ -1,7 +1,6 @@
 # productstutorial
 ui5, cloud foundry, sap cloud
 
-
 # products
 
 Insert the purpose of this project and some interesting infos here
