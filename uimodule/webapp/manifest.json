@@ -153,6 +153,6 @@
     }
   },
   "sap.cloud": {
-    "service": "products.service"
+    "service": "productsservice"
   }
 }
