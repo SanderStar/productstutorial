@@ -26,7 +26,24 @@ sap.ui.define(
 
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
+
+                this.initializeComponent();
             },
+
+            initializeComponent: function() {
+                console.error("step 1");
+                const nNotExist = -1;
+                const oStudio = location.host.indexOf("studio") > nNotExist || location.host.indexOf("localhost") > nNotExist;
+                const sUrl = oStudio ? "../.." : "/productservice.tutorialproducts";
+                console.error("step 2");
+                sap.ui.loader.config({ paths: { "tutorial/products": sUrl } });
+                console.error("step 3");
+
+                sap.ui.require(["tutorial/products/Component"], (oComponent) => {
+                    console.error("step 4");
+                    //oComponent.init();
+                });
+            }
         });
     }
 );
