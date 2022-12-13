@@ -8,7 +8,7 @@ sap.ui.define(["tutorial/products/controller/BaseController"], function (Control
           },
       
           _onRouteMatched: function (oEvent) {
-            sap.m.MessageToast.show("calling library " + be.wl.examplelibrary.getHelloWorld());
+            sap.m.MessageToast.show("Calling library: " + nl.gasunie.workzone.library.getHelloWorld());
             const iProductId = oEvent.getParameter("arguments").productId;
             const oView = this.getView();
             oView.bindElement({
