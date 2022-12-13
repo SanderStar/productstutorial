@@ -1,3 +1,14 @@
+if (location.host.indexOf("studio") > -1) {
+    // to make it work in app studio
+    console.error("local environment");
+    sap.ui.getCore().loadLibrary("be.wl.ScannerAppLibrary", "/bewlScannerAppLibrary/be/wl/ScannerAppLibrary");
+} else {
+    // to make it work in central approuter and HTML5 App Repo
+    console.error("cloud environment");
+    // TODO old manner of loading
+    sap.ui.getCore().loadLibrary("be.wl.exampleLibrary", "/bewlexampleLibrary.bewlexamplelibrary-1.0.0");
+}
+
 sap.ui.define(
     ["sap/ui/core/UIComponent", "sap/ui/Device", "tutorial/products/model/models"],
     /**
