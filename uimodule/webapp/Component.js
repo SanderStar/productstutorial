@@ -1,11 +1,14 @@
-if (location.host.indexOf("studio") > -1) {
-    // to make it work in app studio
+if (location.host.indexOf("studio") > -1 || location.host.indexOf("localhost") > -1 ) {
+    // to make it work in app studio or localhost (visual studio code)
+    // TODO check in business application studio
     console.error("local environment");
-    sap.ui.getCore().loadLibrary("be.wl.ScannerAppLibrary", "/bewlScannerAppLibrary/be/wl/ScannerAppLibrary");
+    // TODO use local copy of library 
+    // 1. get zip from library project 
+    // 2.) unzip it in webapp folder
+    sap.ui.getCore().loadLibrary("nl.gasunie.workzone.library", "/WorkzoneLibrary-content");
 } else {
     // to make it work in central approuter and HTML5 App Repo
     console.error("cloud environment");
-    // TODO old manner of loading
     sap.ui.getCore().loadLibrary("nl.gasunie.workzone.library", "/nlgasunieworkzonelibrary.nlgasunieworkzonelibrary-1.0.0");
 }
 
