@@ -70,6 +70,9 @@ sap.ui.define(["tutorial/products/controller/BaseController"], function (Control
         },
 
           _onRouteMatched: function (oEvent) {
+
+            nl.gasunie.workzone.library.openUrl("https://www.nu.nl");
+
             oMsalInstance = this.createMsalinstance();
 
             sap.m.MessageToast.show("Calling library: " + nl.gasunie.workzone.library.getHelloWorld());
