@@ -1,4 +1,4 @@
-sap.ui.define(["tutorial/products/controller/BaseController"], function (Controller) {
+sap.ui.define(["tutorial/products/controller/BaseController", "nl/gasunie/workzone/library/library"], function (Controller, oLibrary) {
     "use strict";
 
     let oMsalInstance; // we need a global msal instance we can use in lower functions
@@ -71,11 +71,11 @@ sap.ui.define(["tutorial/products/controller/BaseController"], function (Control
 
           _onRouteMatched: function (oEvent) {
 
-            nl.gasunie.workzone.library.openUrl("https://www.nu.nl");
+            oLibrary.openUrl("https://www.nu.nl");
 
             oMsalInstance = this.createMsalinstance();
 
-            sap.m.MessageToast.show("Calling library: " + nl.gasunie.workzone.library.getHelloWorld());
+            sap.m.MessageToast.show("Calling library: " + oLibrary.getHelloWorld());
             const iProductId = oEvent.getParameter("arguments").productId;
             const oView = this.getView();
             oView.bindElement({
