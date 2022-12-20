@@ -1,31 +1,11 @@
-if (location.host.indexOf("studio") > -1 || location.host.indexOf("localhost") > -1 ) {
-    // to make it work in app studio or localhost (visual studio code)
-    // TODO check in business application studio
-    console.error("local environment");
-    // TODO use local copy of library 
-    // 1. get zip from library project 
-    // 2.) unzip it in webapp folder
-    //sap.ui.getCore().loadLibrary("nl.gasunie.workzone.library", "http://localhost:8080/WorkzoneLibrary-content");
-
-    const sUrl = "/WorkzoneLibrary-content";
-    sap.ui.loader.config({ paths: {"nl/gasunie/workzone/library": sUrl} });
-
-    sap.ui.require(["nl/gasunie/workzone/library/library"], (oLibrary) => {
-        console.error("Require executed");
-    });
-} else {
-    // to make it work in central approuter and HTML5 App Repo
-    console.error("cloud environment");
-    sap.ui.getCore().loadLibrary("nl.gasunie.workzone.library", "/nlgasunieworkzonelibrary.nlgasunieworkzonelibrary-1.0.0");
-}
-
 sap.ui.define(
-    ["sap/ui/core/UIComponent", "sap/ui/Device", "tutorial/products/model/models"],
+    ["sap/ui/core/UIComponent", "sap/ui/Device", "tutorial/products/model/models", "sap/base/Log"],
     /**
      * @param {typeof sap.ui.core.UIComponent} UIComponent
      * @param {typeof sap.ui.Device} Device
+     * @param {typeof sap.base.Log} oLog
      */
-    function (UIComponent, Device, models) {
+    function (UIComponent, Device, models, oLog) {
         "use strict";
 
         return UIComponent.extend("tutorial.products.Component", {
@@ -48,22 +28,35 @@ sap.ui.define(
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
 
-                // TODO not needed anymore this.initializeComponent();
+                this.initializeLibrary();
             },
+            initializeLibrary: function() {
 
-            initializeComponent: function() {
-                console.error("step 1");
                 const nNotExist = -1;
-                const oStudio = location.host.indexOf("studio") > nNotExist || location.host.indexOf("localhost") > nNotExist;
-                const sUrl = oStudio ? "../.." : "/productservice.tutorialproducts";
-                console.error("step 2");
-                sap.ui.loader.config({ paths: { "tutorial/products": sUrl } });
-                console.error("step 3");
+                // eslint-disable-next-line no-undef
+                const oLocation = location;
+                const bStudio = oLocation.host.indexOf("studio") > nNotExist || oLocation.host.indexOf("localhost") > nNotExist;
 
-                sap.ui.require(["tutorial/products/Component"], (oComponent) => {
-                    console.error("step 4");
-                    //oComponent.init();
+                let sUrl;
+
+                if (bStudio) {
+                    oLog.info("Initialize workzone library in local environment");
+                    sUrl = "/WorkzoneLibrary-content";
+                } else {
+                    oLog.info("Initialize workzone library in cloud environment");
+                    const n0 = 0;
+                    const aHosts = oLocation.ancestorOrigins;
+                    const sPostfixUrl = "/nlgasunieworkzonelibrary.nlgasunieworkzonelibrary-1.0.0";
+
+                    sUrl = `${aHosts[n0]}${sPostfixUrl}`;
+                }
+
+                sap.ui.loader.config({ paths: { "nl/gasunie/workzone/library": sUrl } });
+
+                sap.ui.require(["nl/gasunie/workzone/library/library"], () => {
+                    oLog.info("Workzone library loaded");
                 });
+
             }
         });
     }
