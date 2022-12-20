@@ -5,7 +5,14 @@ if (location.host.indexOf("studio") > -1 || location.host.indexOf("localhost") >
     // TODO use local copy of library 
     // 1. get zip from library project 
     // 2.) unzip it in webapp folder
-    sap.ui.getCore().loadLibrary("nl.gasunie.workzone.library", "/WorkzoneLibrary-content");
+    //sap.ui.getCore().loadLibrary("nl.gasunie.workzone.library", "http://localhost:8080/WorkzoneLibrary-content");
+
+    const sUrl = "/WorkzoneLibrary-content";
+    sap.ui.loader.config({ paths: {"nl/gasunie/workzone/library": sUrl} });
+
+    sap.ui.require(["nl/gasunie/workzone/library/library"], (oLibrary) => {
+        console.error("Require executed");
+    });
 } else {
     // to make it work in central approuter and HTML5 App Repo
     console.error("cloud environment");
