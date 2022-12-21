@@ -41,7 +41,7 @@ sap.ui.define(
 
                 if (bStudio) {
                     oLog.info("Initialize workzone library in local environment");
-                    sUrl = "/WorkzoneLibrary-content";
+                    sUrl = "/WorkzoneLibrary/nl/gasunie/workzone/library";
                 } else {
                     oLog.info("Initialize workzone library in cloud environment");
                     const n0 = 0;

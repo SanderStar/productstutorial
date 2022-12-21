@@ -2,6 +2,7 @@
   "name": "products",
   "version": "0.0.1",
   "scripts": {
+    "copy-lib": "./copy.sh",
     "start": "ui5 serve --config=uimodule/ui5.yaml  --open test/flpSandbox.html",
     "build:ui": "run-s  build:uimodule",
     "test": "run-s lint karma",
